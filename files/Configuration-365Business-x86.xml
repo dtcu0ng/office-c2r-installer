@@ -1,0 +1,12 @@
+<Configuration ID="6be51d29-3439-4a71-bf3f-29cc656b860c">
+  <Add OfficeClientEdition="32" Channel="Current">
+    <Product ID="O365BusinessRetail">
+      <Language ID="vi-vn" />
+      <ExcludeApp ID="Groove" />
+      <ExcludeApp ID="Lync" />
+    </Product>
+  </Add>
+  <Updates Enabled="TRUE" />
+  <RemoveMSI />
+  <Display Level="Full" AcceptEULA="TRUE" />
+</Configuration>
