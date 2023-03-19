@@ -3,7 +3,7 @@
 :MAIN
 echo "Office C2R Installer"
 echo "github.com/dtcu0ng/office-c2r-installer"
-echo "made by dtcu0ng - version 22.11230"
+echo "made by dtcu0ng - version 23.19.03"
 echo[
 echo Your install option:
 echo 1) Microsoft 365 Business x86
@@ -56,28 +56,28 @@ goto MAIN
 
 :CHOICE5
 echo Installing Office...
-files\setup.exe /configure files\Configuration-2019ProPlus-x86.xml
+files\setup.exe /configure files\Configuration-2021LTSC-x86.xml
 echo Done.
 pause
 goto MAIN
 
 :CHOICE6
 echo Installing Office...
-files\setup.exe /configure files\Configuration-2019ProPlus-x64.xml
+files\setup.exe /configure files\Configuration-2021LTSC-x64.xml
 echo Done.
 pause
 goto MAIN
 
 :CHOICE7
 echo Installing Office...
-files\setup.exe /configure files\Configuration-2021LTSC-x86.xml
+files\setup.exe /configure files\Configuration-2019ProPlus-x86.xml
 echo Done.
 pause
 goto MAIN
 
 :CHOICE8
 echo Installing Office...
-files\setup.exe /configure files\Configuration-2021LTSC-x64.xml
+files\setup.exe /configure files\Configuration-2019ProPlus-x64.xml
 echo Done.
 pause
 goto MAIN
