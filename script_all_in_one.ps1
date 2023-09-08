@@ -1,14 +1,25 @@
 function header() {
-    # todo: make header
+    Clear-Host
+    Write-Host "office-c2r-installer (WIP)"
+    Write-Host "Version 0.0.1 beta 0 (non-working preview)"
+    Write-Host "https://github.com/dtcu0ng/office-c2r-installer"
 }
 
 function customConfigOnline() {
-    Write-Host "[1]: Install Office with specified configuration (online) 1"
-
+    Clear-Host
+    $configPath = Read-Host "Please enter path of the configuration file you want to install. Type q to go back"
+    if ($configPath -eq "q") {
+        main
+    } elseif (!(Test-Path -Path $configPath))  {
+        Write-Host "Configuration file not found. Please double-check your configuration file and try again."
+    } else {
+        Write-Host "Installing Office with specified config: $configPath"
+        Start-Process -FilePath "./files/setup.exe" -ArgumentList "/configure $configPath"
+    }
 }
 
 function preConfigOnline() {
-    Write-Host "[1]: Install Office with specified configuration (online) 2"
+    preConfigMenu
 }
 
 function customConfigOffline() {
@@ -19,20 +30,72 @@ function preConfigOffline() {
     Write-Host "[1]: Install Office with specified configuration (online)4"
 }
 
-function configGenerator() {
-    
-}
+# WIP, will fix it later
+
+# function configGenerator() {
+#     gatherInfomation() {
+# $SourcePath = Read-Host -Prompt "Enter the source path"
+# $OfficeClientEdition = Read-Host -Prompt "Enter the office client edition (32 or 64)"
+# $Channel = Read-Host -Prompt "Enter the update channel"
+# $ProductIDs = Read-Host -Prompt "Enter the product IDs (comma-separated)"
+# $LanguageIDs = Read-Host -Prompt "Enter the language IDs (comma-separated)"
+# $ExcludeAppIDs = Read-Host -Prompt "Enter the app IDs to exclude (comma-separated)"
+# $UpdatePath = Read-Host -Prompt "Enter the update path"
+# $UpdatesEnabled = [bool]::Parse((Read-Host -Prompt "Enable updates? (true or false)"))
+# $DisplayLevel = Read-Host -Prompt "Enter the display level"
+# $AcceptEULA = [bool]::Parse((Read-Host -Prompt "Accept EULA? (true or false)"))
+# $ProductIDs = $ProductIDs.Split(",")
+# $LanguageIDs = $LanguageIDs.Split(",")
+# $ExcludeAppIDs = $ExcludeAppIDs.Split(",")
+# }
+
+# generateConfig() {
+# # Create XML configuration
+# $config = @"
+# <Configuration>
+#     <Add OfficeClientEdition="$OfficeClientEdition" Channel="$Channel">
+#         $(foreach ($product in $ProductIDs) {
+#             "<Product ID=`"$product`">"
+#             foreach ($language in $LanguageIDs) {
+#                 "<Language ID=`"$language`" />"
+#             }
+#             foreach ($excludeApp in $ExcludeAppIDs) {
+#                 "<ExcludeApp ID=`"$excludeApp`" />"
+#             }
+#             "</Product>"
+#         })
+#     </Add>
+#     <Updates Enabled="$UpdatesEnabled" UpdatePath="$UpdatePath" />
+#     <Display Level="$DisplayLevel" AcceptEULA="$AcceptEULA" />
+# </Configuration>
+# "@
+
+# # Save configuration to file
+# $config | Out-File -FilePath .\configuration.xml -Encoding utf8
+# }
+
+# }
 
 function c2rExtractor {
     # todo...
 }
 
+function preConfigMenu {
+# todo: list of pre-configured configuration, can select, use en-us as main language.
+# two type of configuration are available - full or mininal (word, excel, powerpoint,...)    
+}
+
+# codes in below this line is pretty simple, just the selector and the bootstrap code in main()
+# should commented out all the code need to fix or not working before push to Github.
+# this prevent CI failed to run because known not working feature.
+
+# todo: integrate CI to fix syntax.
+
 function mainSelector {
     param (
         [string]$Title = 'office-c2r-installer Selector'
     )
-    Clear-Host
-    Write-Host "==================== office-c2r-installer ======================="
+    Write-Host "================================================================="
     Write-Host "[1]: Install Office with specified configuration (online)"
     Write-Host "[2]: Install Office with pre-configured configuration (online)"
     Write-Host "================================================================="
@@ -44,14 +107,20 @@ function mainSelector {
     Write-Host "================================================================="
 }
 
-mainSelector –Title 'office-c2r-installer Selector'
-$selection = Read-Host "Please use keyboard to make a selection"
-
-switch ($selection) {
-    '1' { customConfigOnline }
-    '2' { preConfigOnline }
-    '3' { customConfigOffline }
-    '4' { preConfigOffline }
-    'g' { generateConfig }
-    'q' { return }
+function main() {
+    header
+    mainSelector –Title 'office-c2r-installer Selector'
+    $selection = Read-Host "Please use keyboard to make a selection"
+    
+    switch ($selection) {
+        '1' { customConfigOnline }
+        '2' { preConfigOnline }
+        '3' { customConfigOffline }
+        '4' { preConfigOffline }
+        'g' { generateConfig }
+        'q' { return }
+    }
 }
+
+# run the script
+main
