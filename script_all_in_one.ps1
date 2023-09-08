@@ -23,16 +23,16 @@ function preConfigOnline() {
 }
 
 function customConfigOffline() {
-    Write-Host "[1]: Install Office with specified configuration (online)3"
+    Write-Host "WIP"
 }
 
 function preConfigOffline() {
-    Write-Host "[1]: Install Office with specified configuration (online)4"
+    Write-Host "WIP"
 }
 
 # WIP, will fix it later
 
-# function configGenerator() {
+function configGenerator() {
 #     gatherInfomation() {
 # $SourcePath = Read-Host -Prompt "Enter the source path"
 # $OfficeClientEdition = Read-Host -Prompt "Enter the office client edition (32 or 64)"
@@ -73,16 +73,18 @@ function preConfigOffline() {
 # # Save configuration to file
 # $config | Out-File -FilePath .\configuration.xml -Encoding utf8
 # }
-
-# }
+Write-Host "WIP"
+}
 
 function c2rExtractor {
     # todo...
+    Write-Host "WIP"
 }
 
 function preConfigMenu {
 # todo: list of pre-configured configuration, can select, use en-us as main language.
-# two type of configuration are available - full or mininal (word, excel, powerpoint,...)    
+# two type of configuration are available - full or mininal (word, excel, powerpoint,...)
+    Write-Host "WIP"
 }
 
 # codes in below this line is pretty simple, just the selector and the bootstrap code in main()
@@ -117,7 +119,7 @@ function main() {
         '2' { preConfigOnline }
         '3' { customConfigOffline }
         '4' { preConfigOffline }
-        'g' { generateConfig }
+        'g' { configGenerator }
         'q' { return }
     }
 }
