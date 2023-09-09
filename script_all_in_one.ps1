@@ -1,7 +1,6 @@
 function header() {
-    Clear-Host
     Write-Host "office-c2r-installer (WIP)"
-    Write-Host "Version 0.0.1 beta 0 (non-working preview)"
+    Write-Host "Version 0.0.1 alpha 1 (partial working preview - UNSTABLE)"
     Write-Host "https://github.com/dtcu0ng/office-c2r-installer"
 }
 
@@ -11,10 +10,16 @@ function customConfigOnline() {
     if ($configPath -eq "q") {
         main
     } elseif (!(Test-Path -Path $configPath))  {
+        Clear-Host
         Write-Host "Configuration file not found. Please double-check your configuration file and try again."
     } else {
+        Clear-Host
         Write-Host "Starting Office setup with a specified configuration: $configPath"
-        Start-Process -FilePath "./files/setup.exe" -ArgumentList "/configure $configPath"
+        Write-Host "Please do not close any window or process during installation."
+        Start-Process -FilePath "./files/setup.exe" -ArgumentList "/configure $configPath" -Wait
+        Clear-Host
+        Write-Host "Setup has been exited, please check that your Office installation is successfully installed."
+        Write-Host "If not, please try again. If the problem persists, please open an issue on Github"
     }
 }
 
@@ -132,21 +137,16 @@ function mainSelector {
     Write-Host "[Q]: Quit"
     Write-Host "================================================================="
 }
-
-function main() {
-    header
-    mainSelector –Title 'office-c2r-installer Selector'
-    $selection = Read-Host "Please use keyboard to make a selection"
+Clear-Host
+header
+mainSelector -Title "office-c2r-installer Selector"
+$selection = Read-Host "Please use keyboard to make a selection."
     
-    switch ($selection) {
-        '1' { customConfigOnline }
-        '2' { preConfigOnline }
-        '3' { customConfigOffline }
-        '4' { preConfigOffline }
-        'g' { configGenerator }
-        'q' { return }
-    }
+switch ($selection) {
+    '1' { customConfigOnline }
+    '2' { preConfigOnline }
+    '3' { customConfigOffline }
+    '4' { preConfigOffline }
+    'g' { configGenerator }
+    'q' { return }
 }
-
-# run the script
-main
