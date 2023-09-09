@@ -1,9 +1,12 @@
 function header() {
     Write-Host "office-c2r-installer (WIP)"
-    Write-Host "Version 0.0.1 alpha 1 (partial working preview - UNSTABLE)"
+    Write-Host "Version 0.0.1 alpha 2 (partial working preview - UNSTABLE)"
     Write-Host "https://github.com/dtcu0ng/office-c2r-installer"
 }
 
+function languageSelector() {
+    #todo (low priority): multilingual script, support Vietnamese and English
+}
 function customConfigOnline() {
     Clear-Host
     $configPath = Read-Host "Please enter path of the configuration file you want to install. Type q to go back"
@@ -152,3 +155,5 @@ function main(){
         'q' { return }
     }
 }
+
+main
