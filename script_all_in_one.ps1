@@ -136,16 +136,19 @@ function mainSelector {
     Write-Host "[Q]: Quit"
     Write-Host "================================================================="
 }
-Clear-Host
-header
-mainSelector -Title "office-c2r-installer Selector"
-$selection = Read-Host "Please use keyboard to make a selection."
-    
-switch ($selection) {
-    '1' { customConfigOnline }
-    '2' { preConfigOnline }
-    '3' { customConfigOffline }
-    '4' { preConfigOffline }
-    'g' { configGenerator }
-    'q' { return }
+
+function main(){
+    Clear-Host
+    header
+    mainSelector -Title "office-c2r-installer Selector"
+    $selection = Read-Host "Please use keyboard to make a selection."
+        
+    switch ($selection) {
+        '1' { customConfigOnline }
+        '2' { preConfigOnline }
+        '3' { customConfigOffline }
+        '4' { preConfigOffline }
+        'g' { configGenerator }
+        'q' { return }
+    }
 }
