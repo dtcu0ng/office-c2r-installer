@@ -1,7 +1,11 @@
-    <Configuration>
-    <Add OfficeClientEdition="64" Channel="Current">
-        <Product ID="ccc"> <Language ID="vi-vn" /> <ExcludeApp ID="" /> </Product>
-    </Add>
-    <Updates Enabled="False" UpdatePath="" />
-    <Display Level="1" AcceptEULA="True" />
+<Configuration ID="14b48ac2-08ad-478a-8604-980963087c35">
+    <Add OfficeClientEdition="64" Channel="a">
+       <Product ID="b">
+        <Language ID="c" />
+    <ExcludeApp ID="d" />
+ </Product>
+            </Add>
+            <Updates Enabled="True" />
+            <RemoveMSI />
+            <Display Level="full" AcceptEULA="True" />
     </Configuration>

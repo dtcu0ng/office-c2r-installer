@@ -1,3 +1,7 @@
 # I hate these
 .DS_Store
 desktop.ini
+
+# Generated test files
+config.xml
+configuration.xml

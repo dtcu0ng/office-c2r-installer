@@ -62,47 +62,46 @@ function preConfigOffline() {
 # WIP, will fix it later
 
 function configGenerator() {
-#     gatherInfomation() {
-# $SourcePath = Read-Host -Prompt "Enter the source path"
-# $OfficeClientEdition = Read-Host -Prompt "Enter the office client edition (32 or 64)"
-# $Channel = Read-Host -Prompt "Enter the update channel"
-# $ProductIDs = Read-Host -Prompt "Enter the product IDs (comma-separated)"
-# $LanguageIDs = Read-Host -Prompt "Enter the language IDs (comma-separated)"
-# $ExcludeAppIDs = Read-Host -Prompt "Enter the app IDs to exclude (comma-separated)"
-# $UpdatePath = Read-Host -Prompt "Enter the update path"
-# $UpdatesEnabled = [bool]::Parse((Read-Host -Prompt "Enable updates? (true or false)"))
-# $DisplayLevel = Read-Host -Prompt "Enter the display level"
-# $AcceptEULA = [bool]::Parse((Read-Host -Prompt "Accept EULA? (true or false)"))
-# $ProductIDs = $ProductIDs.Split(",")
-# $LanguageIDs = $LanguageIDs.Split(",")
-# $ExcludeAppIDs = $ExcludeAppIDs.Split(",")
-# }
+# Create XML configuration (WIP)
+    #$SourcePath = Read-Host -Prompt "Enter the source path"
+    $OfficeClientEdition = Read-Host -Prompt "Enter the office client edition (32 or 64)"
+    $channel = Read-Host -Prompt "Enter the update channel"
+    $productIDs = Read-Host -Prompt "Enter the product IDs (comma-separated)"
+    $languageIDs = Read-Host -Prompt "Enter the language IDs (comma-separated)"
+    $excludeAppIDs = Read-Host -Prompt "Enter the app IDs to exclude (comma-separated)"
+    #$updatePath = Read-Host -Prompt "Enter the update path"
+    $updatesEnabled = [bool]::Parse((Read-Host -Prompt "Enable updates? (true or false)"))
+    $DisplayLevel = Read-Host -Prompt "Enter the display level"
+    $AcceptEULA = [bool]::Parse((Read-Host -Prompt "Accept EULA? (true or false)"))
+    $ProductIDs = $ProductIDs.Split(",")
+    $LanguageIDs = $LanguageIDs.Split(",")
+    $ExcludeAppIDs = $ExcludeAppIDs.Split(",")
 
-# generateConfig() {
-# # Create XML configuration
-# $config = @"
-# <Configuration>
-#     <Add OfficeClientEdition="$OfficeClientEdition" Channel="$Channel">
-#         $(foreach ($product in $ProductIDs) {
-#             "<Product ID=`"$product`">"
-#             foreach ($language in $LanguageIDs) {
-#                 "<Language ID=`"$language`" />"
-#             }
-#             foreach ($excludeApp in $ExcludeAppIDs) {
-#                 "<ExcludeApp ID=`"$excludeApp`" />"
-#             }
-#             "</Product>"
-#         })
-#     </Add>
-#     <Updates Enabled="$UpdatesEnabled" UpdatePath="$UpdatePath" />
-#     <Display Level="$DisplayLevel" AcceptEULA="$AcceptEULA" />
-# </Configuration>
-# "@
+    $configurationName = Read-Host "Enter your configuration name (default is configuration)"
+        if ($configurationName -eq "") {
+            $configurationName = "configuration"
+        }
 
-# # Save configuration to file
-# $config | Out-File -FilePath .\configuration.xml -Encoding utf8
-# }
-Write-Host "WIP"
+    $generatedConfig = @"
+<Configuration ID="$(New-Guid)">
+    <Add OfficeClientEdition="$OfficeClientEdition" Channel="$channel">
+    $(foreach ($product in $productIDs) {
+        "   <Product ID=`"$product`">`n"
+        foreach ($language in $languageIDs) {
+        "       <Language ID=`"$language`" />`n"
+        }
+        foreach ($excludeApp in $excludeAppIDs) {
+            "   <ExcludeApp ID=`"$excludeApp`" />`n"
+            }
+            "</Product>"
+        })
+            </Add>
+            <Updates Enabled="$updatesEnabled" />
+            <RemoveMSI />
+            <Display Level="$displayLevel" AcceptEULA="$acceptEULA" />
+    </Configuration>
+"@
+    $generatedConfig | Out-File -FilePath .\$configurationName.xml -Encoding utf8
 }
 
 function c2rExtractor {
