@@ -13,7 +13,7 @@ function customConfigOnline() {
     } elseif (!(Test-Path -Path $configPath))  {
         Write-Host "Configuration file not found. Please double-check your configuration file and try again."
     } else {
-        Write-Host "Installing Office with specified config: $configPath"
+        Write-Host "Starting Office setup with a specified configuration: $configPath"
         Start-Process -FilePath "./files/setup.exe" -ArgumentList "/configure $configPath"
     }
 }
@@ -23,11 +23,35 @@ function preConfigOnline() {
 }
 
 function customConfigOffline() {
-    Write-Host "WIP"
+    Clear-Host
+    $configPath = Read-Host "Please enter path of the configuration file you want to install. Type q to go back"
+    if ($configPath -eq "q") {
+        main
+    } elseif (!(Test-Path -Path $configPath))  {
+        Write-Host "Configuration file not found. Please double-check your configuration file and try again."
+    } else {
+        $installerPath = Read-Host "Please specify your Office installer path. Type q to go back to main menu."
+        if ($installPath -eq "q") {
+            main
+        } elseif (!(Test-Path -Path $installerPath)) {
+            Write-Host "Installer path not found. Please double check your installer path and try again."
+        } else {
+            Write-Host "WIP"
+        }
+    }
 }
 
 function preConfigOffline() {
-    Write-Host "WIP"
+    Clear-Host
+    $installerPath = Read-Host "Please specify your Office installer path. Type q to go back to main menu."
+    if ($installerPath -eq "q") {
+        main
+    } elseif (!(Test-Path -Path $configPath)) {
+        Write-Host "Configuration file not found. Please double-check your configuration file and try again."
+    } else {
+        preConfigMenu
+    }
+
 }
 
 # WIP, will fix it later
