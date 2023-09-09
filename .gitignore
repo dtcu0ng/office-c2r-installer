@@ -3,5 +3,4 @@
 desktop.ini
 
 # Generated test files
-config.xml
-configuration.xml
+*.xml
