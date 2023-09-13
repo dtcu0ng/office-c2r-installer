@@ -1,3 +1,6 @@
+#Requires -Version 5.1
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
 function header() {
     Write-Host "office-c2r-installer (WIP)"
     Write-Host "Version 0.0.1 alpha 2 (partial working preview - UNSTABLE)"
@@ -67,7 +70,21 @@ function preConfigOffline() {
 function configGenerator() {
 # Create XML configuration (WIP)
     #$SourcePath = Read-Host -Prompt "Enter the source path"
-    $OfficeClientEdition = Read-Host -Prompt "Enter the office client edition (32 or 64)"
+    Write-Host "Do you want to install Office via your local source file?"
+    $SelSourcePath = Read-Host -Prompt "If you want to, just specify the source path here. If you want to install via Office CDN, press 'o'"
+    if ($SelSourcePath -eq "o") {
+        $SelSourcePath = ""
+        Write-Host "Will install via Office CDN."
+    }
+    Write-Host "Please select architecture for your Office installation."
+    Write-Host "[1]: 64bit (x64)"
+    Write-Host "[2]: 32bit (x86)"
+    $confGenArch = Read-Host "Please use keyboard to make a selection"
+        
+    switch ($confGenArch) {
+        '1' { $OfficeClientEdition = 64 }
+        '2' { $OfficeClientEdition = 32 }
+    }
     $channel = Read-Host -Prompt "Enter the update channel"
     $productIDs = Read-Host -Prompt "Enter the product IDs (comma-separated)"
     $languageIDs = Read-Host -Prompt "Enter the language IDs (comma-separated)"
@@ -80,14 +97,14 @@ function configGenerator() {
     $LanguageIDs = $LanguageIDs.Split(",")
     $ExcludeAppIDs = $ExcludeAppIDs.Split(",")
 
-    $configurationName = Read-Host "Enter your configuration name (default is configuration)"
+    $configurationName = Read-Host "Enter your configuration name (default is Configuration)"
         if ($configurationName -eq "") {
-            $configurationName = "configuration"
+            $configurationName = "Configuration"
         }
 
     $generatedConfig = @"
 <Configuration ID="$(New-Guid)">
-    <Add OfficeClientEdition="$OfficeClientEdition" Channel="$channel">
+    <Add OfficeClientEdition="$OfficeClientEdition" Channel="$channel" MigrateArch="$migrateArch">
     $(foreach ($product in $productIDs) {
         "   <Product ID=`"$product`">`n"
         foreach ($language in $languageIDs) {
@@ -144,7 +161,7 @@ function main(){
     Clear-Host
     header
     mainSelector -Title "office-c2r-installer Selector"
-    $selection = Read-Host "Please use keyboard to make a selection."
+    $selection = Read-Host "Please use keyboard to make a selection"
         
     switch ($selection) {
         '1' { customConfigOnline }

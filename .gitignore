@@ -4,3 +4,5 @@ desktop.ini
 
 # Generated test files
 *.xml
+test.ps1
+configGenerator.ps1
