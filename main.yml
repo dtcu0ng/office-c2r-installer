@@ -16,4 +16,4 @@ jobs:
 
       - name: Run ScriptAnalyzer
         run:
-          powershell -Command "& {Invoke-ScriptAnalyzer -Path '.\script.ps1' -EnableExit}"
+          powershell -Command "& {Invoke-ScriptAnalyzer -Path '.\script_all_in_one.ps1' -EnableExit}"
