@@ -8,7 +8,25 @@ function header() {
 }
 
 function languageSelector() {
-    #todo (low priority): multilingual script, support Vietnamese and English
+    Write-Host "Language selector:"
+    Write-Host "(1) English"
+    Write-Host "(2) Vietnamese"
+    $mainLanguage = Read-Host "Please choose your preferred language:"
+    if ($mainLanguage -eq "") {
+        Write-Host "Please select a language"
+    } else {
+        mainSelector -Title "office-c2r-installer Selector"
+        $selection = Read-Host "Please use keyboard to make a selection"
+            
+        switch ($selection) {
+            '1' { customConfigOnline }
+            '2' { preConfigOnline }
+            '3' { customConfigOffline }
+            '4' { preConfigOffline }
+            'g' { configGenerator }
+            'q' { return }
+        }
+    }
 }
 function customConfigOnline() {
     Clear-Host
@@ -160,17 +178,7 @@ function mainSelector {
 function main(){
     Clear-Host
     header
-    mainSelector -Title "office-c2r-installer Selector"
-    $selection = Read-Host "Please use keyboard to make a selection"
-        
-    switch ($selection) {
-        '1' { customConfigOnline }
-        '2' { preConfigOnline }
-        '3' { customConfigOffline }
-        '4' { preConfigOffline }
-        'g' { configGenerator }
-        'q' { return }
-    }
+    languageSelector
 }
 
 main
