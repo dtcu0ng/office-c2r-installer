@@ -36,7 +36,7 @@ function languageSelector() {
     if ($mainLanguage -eq "") {
         Write-Output "Please select a language"
     } else {
-        mainSelector -Title "office-c2r-installer Selector"
+        mainSelector
         $selection = Read-Host "Please use keyboard to make a selection"
         switch ($selection) {
             '1' { customConfigOnline }
