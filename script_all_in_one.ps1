@@ -6,6 +6,27 @@ function header() {
     Write-Output "Version 0.0.1 alpha 2 (partial working preview - UNSTABLE)"
     Write-Output "https://github.com/dtcu0ng/office-c2r-installer"
 }
+# codes in below this line is pretty simple, just the selector and the bootstrap code in main()
+# should commented out all the code need to fix or not working before push to Github.
+# this prevent CI failed to run because known not working feature.
+
+# todo: integrate CI to fix syntax.
+
+function mainSelector {
+    param (
+        [string]$Title = 'office-c2r-installer Selector'
+    )
+    Write-Output "================================================================="
+    Write-Output "[1]: Install Office with specified configuration (online)"
+    Write-Output "[2]: Install Office with pre-configured configuration (online)"
+    Write-Output "================================================================="
+    Write-Output "[3]: Install Office with specified configuration (offline)"
+    Write-Output "[4]: Install Office with pre-configured configuration (offline)"
+    Write-Output "================================================================="
+    Write-Output "[G]: Generate configuration"
+    Write-Output "[Q]: Quit"
+    Write-Output "================================================================="
+}
 
 function languageSelector() {
     Write-Output "Language selector:"
@@ -16,7 +37,7 @@ function languageSelector() {
         Write-Output "Please select a language"
     } else {
         mainSelector -Title "office-c2r-installer Selector"
-        $selection = Read-Host "Please use keyboard to make a selection"  
+        $selection = Read-Host "Please use keyboard to make a selection"
         switch ($selection) {
             '1' { customConfigOnline }
             '2' { preConfigOnline }
@@ -96,7 +117,7 @@ function configGenerator() {
     Write-Output "Please select architecture for your Office installation."
     Write-Output "[1]: 64bit (x64)"
     Write-Output "[2]: 32bit (x86)"
-    $confGenArch = Read-Host "Please use keyboard to make a selection"  
+    $confGenArch = Read-Host "Please use keyboard to make a selection"
     switch ($confGenArch) {
         '1' { $OfficeClientEdition = 64 }
         '2' { $OfficeClientEdition = 32 }
@@ -149,28 +170,6 @@ function preConfigMenu {
 # todo: list of pre-configured configuration, can select, use en-us as main language.
 # two type of configuration are available - full or mininal (word, excel, powerpoint,...)
     Write-Output "WIP"
-}
-
-# codes in below this line is pretty simple, just the selector and the bootstrap code in main()
-# should commented out all the code need to fix or not working before push to Github.
-# this prevent CI failed to run because known not working feature.
-
-# todo: integrate CI to fix syntax.
-
-function mainSelector {
-    param (
-        [string]$Title = 'office-c2r-installer Selector'
-    )
-    Write-Output "================================================================="
-    Write-Output "[1]: Install Office with specified configuration (online)"
-    Write-Output "[2]: Install Office with pre-configured configuration (online)"
-    Write-Output "================================================================="
-    Write-Output "[3]: Install Office with specified configuration (offline)"
-    Write-Output "[4]: Install Office with pre-configured configuration (offline)"
-    Write-Output "================================================================="
-    Write-Output "[G]: Generate configuration"
-    Write-Output "[Q]: Quit"
-    Write-Output "================================================================="
 }
 function main(){
     Clear-Host
