@@ -2,22 +2,21 @@
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 function header() {
-    Write-Host "office-c2r-installer (WIP)"
-    Write-Host "Version 0.0.1 alpha 2 (partial working preview - UNSTABLE)"
-    Write-Host "https://github.com/dtcu0ng/office-c2r-installer"
+    Write-Output "office-c2r-installer (WIP)"
+    Write-Output "Version 0.0.1 alpha 2 (partial working preview - UNSTABLE)"
+    Write-Output "https://github.com/dtcu0ng/office-c2r-installer"
 }
 
 function languageSelector() {
-    Write-Host "Language selector:"
-    Write-Host "(1) English"
-    Write-Host "(2) Vietnamese"
+    Write-Output "Language selector:"
+    Write-Output "(1) English"
+    Write-Output "(2) Vietnamese"
     $mainLanguage = Read-Host "Please choose your preferred language:"
     if ($mainLanguage -eq "") {
-        Write-Host "Please select a language"
+        Write-Output "Please select a language"
     } else {
         mainSelector -Title "office-c2r-installer Selector"
-        $selection = Read-Host "Please use keyboard to make a selection"
-            
+        $selection = Read-Host "Please use keyboard to make a selection"  
         switch ($selection) {
             '1' { customConfigOnline }
             '2' { preConfigOnline }
@@ -35,15 +34,15 @@ function customConfigOnline() {
         main
     } elseif (!(Test-Path -Path $configPath))  {
         Clear-Host
-        Write-Host "Configuration file not found. Please double-check your configuration file and try again."
+        Write-Output "Configuration file not found. Please double-check your configuration file and try again."
     } else {
         Clear-Host
-        Write-Host "Starting Office setup with a specified configuration: $configPath"
-        Write-Host "Please do not close any window or process during installation."
+        Write-Output "Starting Office setup with a specified configuration: $configPath"
+        Write-Output "Please do not close any window or process during installation."
         Start-Process -FilePath "./files/setup.exe" -ArgumentList "/configure $configPath" -Wait
         Clear-Host
-        Write-Host "Setup has been exited, please check that your Office installation is successfully installed."
-        Write-Host "If not, please try again. If the problem persists, please open an issue on Github"
+        Write-Output "Setup has been exited, please check that your Office installation is successfully installed."
+        Write-Output "If not, please try again. If the problem persists, please open an issue on Github"
     }
 }
 
@@ -57,15 +56,15 @@ function customConfigOffline() {
     if ($configPath -eq "q") {
         main
     } elseif (!(Test-Path -Path $configPath))  {
-        Write-Host "Configuration file not found. Please double-check your configuration file and try again."
+        Write-Output "Configuration file not found. Please double-check your configuration file and try again."
     } else {
         $installerPath = Read-Host "Please specify your Office installer path. Type q to go back to main menu."
         if ($installPath -eq "q") {
             main
         } elseif (!(Test-Path -Path $installerPath)) {
-            Write-Host "Installer path not found. Please double check your installer path and try again."
+            Write-Output "Installer path not found. Please double check your installer path and try again."
         } else {
-            Write-Host "WIP"
+            Write-Output "WIP"
         }
     }
 }
@@ -76,7 +75,7 @@ function preConfigOffline() {
     if ($installerPath -eq "q") {
         main
     } elseif (!(Test-Path -Path $configPath)) {
-        Write-Host "Configuration file not found. Please double-check your configuration file and try again."
+        Write-Output "Configuration file not found. Please double-check your configuration file and try again."
     } else {
         preConfigMenu
     }
@@ -88,17 +87,16 @@ function preConfigOffline() {
 function configGenerator() {
 # Create XML configuration (WIP)
     #$SourcePath = Read-Host -Prompt "Enter the source path"
-    Write-Host "Do you want to install Office via your local source file?"
+    Write-Output "Do you want to install Office via your local source file?"
     $SelSourcePath = Read-Host -Prompt "If you want to, just specify the source path here. If you want to install via Office CDN, press 'o'"
     if ($SelSourcePath -eq "o") {
         $SelSourcePath = ""
-        Write-Host "Will install via Office CDN."
+        Write-Output "Will install via Office CDN."
     }
-    Write-Host "Please select architecture for your Office installation."
-    Write-Host "[1]: 64bit (x64)"
-    Write-Host "[2]: 32bit (x86)"
-    $confGenArch = Read-Host "Please use keyboard to make a selection"
-        
+    Write-Output "Please select architecture for your Office installation."
+    Write-Output "[1]: 64bit (x64)"
+    Write-Output "[2]: 32bit (x86)"
+    $confGenArch = Read-Host "Please use keyboard to make a selection"  
     switch ($confGenArch) {
         '1' { $OfficeClientEdition = 64 }
         '2' { $OfficeClientEdition = 32 }
@@ -144,13 +142,13 @@ function configGenerator() {
 
 function c2rExtractor {
     # todo...
-    Write-Host "WIP"
+    Write-Output "WIP"
 }
 
 function preConfigMenu {
 # todo: list of pre-configured configuration, can select, use en-us as main language.
 # two type of configuration are available - full or mininal (word, excel, powerpoint,...)
-    Write-Host "WIP"
+    Write-Output "WIP"
 }
 
 # codes in below this line is pretty simple, just the selector and the bootstrap code in main()
@@ -163,22 +161,20 @@ function mainSelector {
     param (
         [string]$Title = 'office-c2r-installer Selector'
     )
-    Write-Host "================================================================="
-    Write-Host "[1]: Install Office with specified configuration (online)"
-    Write-Host "[2]: Install Office with pre-configured configuration (online)"
-    Write-Host "================================================================="
-    Write-Host "[3]: Install Office with specified configuration (offline)"
-    Write-Host "[4]: Install Office with pre-configured configuration (offline)"
-    Write-Host "================================================================="
-    Write-Host "[G]: Generate configuration"
-    Write-Host "[Q]: Quit"
-    Write-Host "================================================================="
+    Write-Output "================================================================="
+    Write-Output "[1]: Install Office with specified configuration (online)"
+    Write-Output "[2]: Install Office with pre-configured configuration (online)"
+    Write-Output "================================================================="
+    Write-Output "[3]: Install Office with specified configuration (offline)"
+    Write-Output "[4]: Install Office with pre-configured configuration (offline)"
+    Write-Output "================================================================="
+    Write-Output "[G]: Generate configuration"
+    Write-Output "[Q]: Quit"
+    Write-Output "================================================================="
 }
-
 function main(){
     Clear-Host
     header
     languageSelector
 }
-
 main
