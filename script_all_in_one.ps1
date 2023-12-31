@@ -13,9 +13,6 @@ function header() {
 # todo: integrate CI to fix syntax.
 
 function mainSelector {
-    param (
-        [string]$Title = 'office-c2r-installer Selector'
-    )
     Write-Output "================================================================="
     Write-Output "[1]: Install Office with specified configuration (online)"
     Write-Output "[2]: Install Office with pre-configured configuration (online)"
